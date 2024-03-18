@@ -4,10 +4,9 @@
 
 #include "Server.h"
 
-
-
 int main() {
-    Server server = Server();
-
+    http::Server server;
+    server.init();
+    server.listen();
     return 0;
 }
