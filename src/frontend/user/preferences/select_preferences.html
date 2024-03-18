@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Your Preferences</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .title {
+            color: #333;
+            text-align: center;
+            margin: 20px;
+        }
+        .preferences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 960px;
+        }
+        .preference-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 10px;
+            text-align: center;
+        }
+        .preference-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .preference-card label {
+            display: block;
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1 class="title">Select Your Volunteer Preferences</h1>
+<div class="preferences-grid">
+    <div class="preference-card">
+        <img src="https://www.cambridgeriskmanagement.com/wp-content/uploads/2015/05/environment-150x150.jpg" alt="Environment">
+        <label><input type="checkbox" name="preference" value="environment"> Environment</label>
+    </div>
+    <div class="preference-card">
+        <img src="https://inc42.com/wp-content/uploads/2018/06/education-150x150.jpg" alt="Education">
+        <label><input type="checkbox" name="preference" value="education"> Education</label>
+    </div>
+    <div class="preference-card">
+        <img src="https://www.emspproject.eu/wp-content/uploads/2022/02/2-150x150.jpg" alt="Community">
+        <label><input type="checkbox" name="preference" value="community"> Community</label>
+    </div>
+</div>
+<button type="button" id="find-opportunities-btn">Find Opportunities</button>
+
+<script>
+    document.getElementById('find-opportunities-btn').addEventListener('click', function() {
+        // here you would save the selected preferences
+        window.location.href = 'opportunities.html';
+    });
+</script>
+</body>
+</html>
