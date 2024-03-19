@@ -4,6 +4,10 @@
 
 #include "Server.h"
 
+// std...
+#include <fstream>
+#include <sstream>
+
 // src...
 #include "Status.h"
 
@@ -46,6 +50,42 @@ namespace http {
                 res.status = http::Status::BadRequest;
                 res.set_content("Bad JSON format", "text/plain");
             }
+        });
+
+        // -----------------------------------
+        // ENDPOINT: "/<username>"
+        // -----------------------------------
+        Get(R"(/([^/]+)/preferences)", [](const httplib::Request& req, httplib::Response& res) {
+            // Extract the username from the request, which is captured by the first "([^/]+)" regex in the URL pattern.
+            std::string _ = req.matches[1];
+
+            // Send back HTML.
+            std::ifstream file("src/frontend/user/preferences/select_preferences.html");
+            if (!file.is_open()) {
+                res.status = http::Status::InternalServerError;
+                res.set_content("Could not find file to serve.", "text/plain");
+                return;
+            }
+            std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+            res.status = http::Status::Ok;
+            res.set_content(content, "text/html");
+        });
+        Get(R"(/([^/]+)/opportunities)", [](const httplib::Request& req, httplib::Response& res) {
+            // Extract the username from the request, which is captured by the first "([^/]+)" regex in the URL pattern.
+            std::string _ = req.matches[1];
+
+            // Send back HTML.
+            std::ifstream file("src/frontend/user/opportunities/matching_opportunities.html");
+            if (!file.is_open()) {
+                res.status = http::Status::InternalServerError;
+                res.set_content("Could not find file to serve.", "text/plain");
+                return;
+            }
+            std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+            res.status = http::Status::Ok;
+            res.set_content(content, "text/html");
         });
     }
 
