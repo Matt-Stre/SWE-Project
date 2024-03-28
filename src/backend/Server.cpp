@@ -24,7 +24,9 @@ namespace http {
     // Constructors / Destructors
     //
 
-    Server::Server() = default;
+    Server::Server() {
+        db = csv::parse("src/backend/Database.csv");
+    }
 
     Server::~Server() = default;
 
@@ -33,6 +35,23 @@ namespace http {
     //
 
     void Server::init() {
+        // -----------------------------------
+        // ENDPOINT: FIXME (REMOVE) "/ex"
+        // -----------------------------------
+        Get("/ex", [](const httplib::Request& req, httplib::Response& res) {
+            // Send back HTML.
+            std::ifstream file("src/frontend/ex/index.html");
+            if (!file.is_open()) {
+                res.status = http::Status::InternalServerError;
+                res.set_content("Could not find file to serve.", "text/plain");
+                return;
+            }
+            std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+            res.status = http::Status::Ok;
+            res.set_content(content, "text/html");
+        });
+
         // -----------------------------------
         // ENDPOINT: "/"
         // -----------------------------------
@@ -53,14 +72,14 @@ namespace http {
         });
 
         // -----------------------------------
-        // ENDPOINT: "/<username>"
+        // ENDPOINT: "/app/<username>"
         // -----------------------------------
-        Get(R"(/([^/]+)/preferences)", [](const httplib::Request& req, httplib::Response& res) {
+        Get(R"(/app/([^/]+)/preferences)", [](const httplib::Request& req, httplib::Response& res) {
             // Extract the username from the request, which is captured by the first "([^/]+)" regex in the URL pattern.
             std::string _ = req.matches[1];
 
             // Send back HTML.
-            std::ifstream file("src/frontend/user/preferences/select_preferences.html");
+            std::ifstream file("src/frontend/username/preferences/index.html");
             if (!file.is_open()) {
                 res.status = http::Status::InternalServerError;
                 res.set_content("Could not find file to serve.", "text/plain");
@@ -71,12 +90,12 @@ namespace http {
             res.status = http::Status::Ok;
             res.set_content(content, "text/html");
         });
-        Get(R"(/([^/]+)/opportunities)", [](const httplib::Request& req, httplib::Response& res) {
+        Get(R"(/app/([^/]+)/opportunities)", [](const httplib::Request& req, httplib::Response& res) {
             // Extract the username from the request, which is captured by the first "([^/]+)" regex in the URL pattern.
             std::string _ = req.matches[1];
 
             // Send back HTML.
-            std::ifstream file("src/frontend/user/opportunities/matching_opportunities.html");
+            std::ifstream file("src/frontend/username/opportunities/index.html");
             if (!file.is_open()) {
                 res.status = http::Status::InternalServerError;
                 res.set_content("Could not find file to serve.", "text/plain");
@@ -86,11 +105,38 @@ namespace http {
 
             res.status = http::Status::Ok;
             res.set_content(content, "text/html");
+        });
+
+        // -----------------------------------
+        // ENDPOINT: "/api/preferences"
+        // -----------------------------------
+        Get(R"(/api/preferences/([^/]+))", [](const httplib::Request& req, httplib::Response& res) {
+            // FIXME (remove): This sends pseudo-JSON.
+            json obj;
+            obj["username"] = req.matches[1];
+            obj["password"] = "password12345";
+            obj["preferences"] = {
+                    {"1", "Example Preference A", "(000)-000-0000"},
+                    {"2", "Example Preference B", "(000)-000-0000"},
+                    {"3", "Example Preference C", "(000)-000-0000"},
+            };
+            
+            res.status = http::Status::Ok;
+            res.set_content(obj.dump(), "application/json");
+        });
+
+        // -----------------------------------
+        // ENDPOINT: "/api/opportunities"
+        // -----------------------------------
+        Get("/api/opportunities", [&](const httplib::Request& req, httplib::Response& res) {
+            json obj = db;
+
+            res.status = http::Status::Ok;
+            res.set_content(obj.dump(), "application/json");
         });
     }
 
     bool Server::listen() {
         return static_cast<httplib::Server*>(this)->listen("127.0.0.1", 8080);
     }
-
 } // http

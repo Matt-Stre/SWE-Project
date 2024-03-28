@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Your Preferences</title>
+    <style>
+        /* Ensures the entire page occupies full viewport height */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center; /* Centers content horizontally */
+            align-items: center; /* Centers content vertically */
+        }
+        /* Styling for the main container to center and style the content area */
+        .container {
+            width: 90%;
+            max-width: 960px; /* Maximum width to ensure content is not too stretched on wider screens */
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Adds a subtle shadow around the container */
+            border-radius: 8px; /* Rounds the corners of the container */
+            text-align: center; /* Ensures text and form elements are centered within the container */
+        }
+        /* Styles the grid layout for preference cards */
+        .preferences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Creates a responsive grid layout */
+            gap: 20px; /* Spacing between grid items */
+        }
+        /* Styles for each preference card */
+        .preference-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 10px;
+            text-align: center;
+        }
+        /* Ensures images within preference cards are fully responsive */
+        .preference-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px; /* Slightly rounds the corners of the images */
+        }
+        /* Styles the labels and checkboxes within preference cards */
+        .preference-card label {
+            display: block;
+            margin-top: 10px;
+        }
+        /* Styles the "Find Opportunities" button */
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        /* Adds a hover effect to the button for better user interaction */
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Select Your Volunteer Preferences</h1>
+        <form id="preferences-form">
+            <div class="preferences-grid">
+                <!-- Individual preference cards with images and checkboxes -->
+                <!-- Environment Preference -->
+                <div class="preference-card">
+                    <img src="https://www.cambridgeriskmanagement.com/wp-content/uploads/2015/05/environment-150x150.jpg" alt="Environment">
+                    <label><input type="checkbox" name="preference" value="environment"> Environment</label>
+                </div>
+                <!-- Education Preference -->
+                <div class="preference-card">
+                    <img src="https://inc42.com/wp-content/uploads/2018/06/education-150x150.jpg" alt="Education">
+                    <label><input type="checkbox" name="preference" value="education"> Education</label>
+                </div>
+                <!-- Community Preference -->
+                <div class="preference-card">
+                    <img src="https://www.emspproject.eu/wp-content/uploads/2022/02/2-150x150.jpg" alt="Community">
+                    <label><input type="checkbox" name="preference" value="community"> Community</label>
+                </div>
+            </div>
+            <!-- Submission button to find opportunities based on selected preferences -->
+            <button type="button" id="find-opportunities-btn">Find Opportunities</button>
+        </form>
+    </div>
+
+    <script>
+        // Adding event listener for button click to handle form submission
+        document.getElementById('find-opportunities-btn').addEventListener('click', async function() {
+            const form = document.getElementById('preferences-form');
+            const formData = new FormData(form);
+            const preferences = [];
+            // Collects selected preferences from the form
+            formData.forEach((value, key) => {
+                if (key === 'preference') preferences.push(value);
+            });
+            
+            try {
+                // Example username, replace with actual dynamic username
+                const username = 'user123'; 
+                const response = await fetch(`http://localhost:3000/${username}/preferences`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ preferences }),
+                });
+
+                if (response.ok) {
+                    // Redirect to Page Two upon successful preferences submission
+                    window.location.href = 'opportunities.html'; 
+                } else {
+                    console.error('Failed to save preferences');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>

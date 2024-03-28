@@ -5,6 +5,9 @@
 #ifndef SWE_PROJECT_SERVER_H
 #define SWE_PROJECT_SERVER_H
 
+// src...
+#include "CSV.h"
+
 // lib...
 #include <cpp-httplib/httplib.h>
 
@@ -28,6 +31,7 @@ namespace http {
         bool listen();
 
     private:
+        csv::Data db;
     };
 
 } // http
