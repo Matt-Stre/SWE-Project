@@ -13,4 +13,6 @@ add_executable(SWE_Project
         src/backend/CSV.cpp
         src/backend/CSV.h
         src/backend/httplib/httplib.h
+        src/backend/Opportunity.cpp
+        src/backend/Opportunity.h
 )
