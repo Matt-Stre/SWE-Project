@@ -1,0 +1,6 @@
+# ninja log v5
+5653	5718	1711668505270166614	SWE_Project	e205b6a384b21723
+3	4976	1711668132440806223	CMakeFiles/SWE_Project.dir/src/backend/main.cpp.o	ed1d8a2e54217154
+10	5653	1711668505181854513	CMakeFiles/SWE_Project.dir/src/backend/Server.cpp.o	d0b24015d430c052
+0	61	1711670370689246249	build.ninja	af2e0d150157a4eb
+5	1703	1711668129174024038	CMakeFiles/SWE_Project.dir/src/backend/CSV.cpp.o	bb8ab5ea4b80f981

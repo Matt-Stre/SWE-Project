@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTTP Request Example</title>
+    <script>
+        // Function to load data from the server and update the page
+        async function loadData() {
+            try {
+                // Make a GET request to the server
+                const response = await fetch('/api/opportunities');
+
+                // Parse the JSON response
+                const data = await response.json();
+
+                // Find the div where the data will be displayed
+                const displayDiv = document.getElementById('dataDisplay');
+
+                // Clear previous contents
+                displayDiv.innerHTML = '';
+
+                // Iterate over the JSON object and create elements to display key-value pairs
+                Object.entries(data).forEach(([key, value]) => {
+                    const element = document.createElement('p');
+                    element.textContent = `${key}: ${JSON.stringify(value)}`;
+                    displayDiv.appendChild(element);
+                });
+            } catch (error) {
+                console.error('Failed to fetch data:', error);
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>HTTP Request Example</h1>
+<button onclick="loadData()">Load</button>
+<div id="dataDisplay"></div>
+</body>
+</html>
