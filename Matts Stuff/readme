@@ -1,1 +1,3 @@
-The databse.csv is a sample csv file and the source1 file reads the csv and stores the data
+The databse.csv is our databse with commas and quotes removed from all columns but the keywords column
+
+The keyword.cpp file has both the csv parsing and the keyword matching elements within it
