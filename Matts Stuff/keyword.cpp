@@ -51,7 +51,8 @@ vector<volunteer> getmatches(vector<string> keywordVector, vector<volunteer> vol
 }
 
 
-int main() {
+
+int main(int argc, char* argv[]) {
     
   
     fstream fout;
@@ -110,10 +111,19 @@ int main() {
     }
     */
 
+
+
     //---READING KEYWORDS---//
 
-    //getting keywords from ui TODO
-    vector<string> keywordVector{ "temp", "dog", "cat" }; //test vector
+    //getting keywords from ui 
+    vector<string> keywordVector{"food insecurity"}; //test vector
+    for (int i = 0; i < keywordVector.size(); i++) {
+       keywordVector[i].erase(remove(keywordVector[i].begin(), keywordVector[i].end(), ' '), keywordVector[i].end()); //removes spaces because i formatted the csv weirdly
+    }
+    //for (int i = 1; i < argc; i++) {
+        //string meow = argv[i];
+        //keywordVector.push_back(meow);
+    //}
     vector<volunteer> volVector = getmatches(keywordVector, volunteerOpportunities);
 
     
@@ -124,9 +134,7 @@ int main() {
     }
     
 
-    //---SENDING VOLUNTEERING OPPORTUNITIES TO UI---//
-    
-    //TODO
+
 
 
     return 0;
