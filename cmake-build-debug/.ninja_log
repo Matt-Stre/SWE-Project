@@ -1,6 +1,11 @@
 # ninja log v5
-5653	5718	1711668505270166614	SWE_Project	e205b6a384b21723
-3	4976	1711668132440806223	CMakeFiles/SWE_Project.dir/src/backend/main.cpp.o	ed1d8a2e54217154
-10	5653	1711668505181854513	CMakeFiles/SWE_Project.dir/src/backend/Server.cpp.o	d0b24015d430c052
-0	61	1711670370689246249	build.ninja	af2e0d150157a4eb
 5	1703	1711668129174024038	CMakeFiles/SWE_Project.dir/src/backend/CSV.cpp.o	bb8ab5ea4b80f981
+0	61	1711670794183051460	build.ninja	af2e0d150157a4eb
+10	5653	1711668505181854513	CMakeFiles/SWE_Project.dir/src/backend/Server.cpp.o	d0b24015d430c052
+3	4976	1711668132440806223	CMakeFiles/SWE_Project.dir/src/backend/main.cpp.o	ed1d8a2e54217154
+5653	5718	1711668505270166614	SWE_Project	e205b6a384b21723
+0	100	1711670794183051460	build.ninja	af2e0d150157a4eb
+7	1767	1711670795954042372	CMakeFiles/SWE_Project.dir/src/backend/CSV.cpp.o	392e8310ac0c49eb
+5	5816	1711670799995512214	CMakeFiles/SWE_Project.dir/src/backend/main.cpp.o	478f78e2af828ad
+6	10516	1711670804681594504	CMakeFiles/SWE_Project.dir/src/backend/Server.cpp.o	e51d88bbaf14d17f
+10516	10779	1711670804964417618	SWE_Project	e205b6a384b21723
