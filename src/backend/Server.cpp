@@ -134,6 +134,33 @@ namespace http {
             res.status = http::Status::Ok;
             res.set_content(obj.dump(), "application/json");
         });
+        Put("/api/opportunities", [&](const httplib::Request& req, httplib::Response& res) {
+            try {
+                auto json = json::parse(req.body);
+
+                // Get data fields.
+                std::string name = json["name"];
+                std::string pnum = json["phoneNumber"];
+                std::string desc = json["description"];
+                std::vector<std::string> keys = json["keywords"];
+
+                // Prepare data for storing in `db`.
+                std::vector<std::string> data;
+                data.reserve(2 + keys.size());
+                data.push_back(pnum);
+                data.push_back(desc);
+                data.insert(data.end(), keys.begin(), keys.end());
+
+                // Store.
+                db[name] = data;
+
+                res.status = http::Status::Ok;
+//                res.set_content(json.dump(), "application/json");
+            } catch (const json::parse_error& _) {
+                res.status = http::Status::BadRequest;
+                res.set_content("Bad JSON format", "text/plain");
+            }
+        });
     }
 
     bool Server::listen() {
