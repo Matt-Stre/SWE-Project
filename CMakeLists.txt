@@ -10,9 +10,9 @@ include_directories(${CMAKE_SOURCE_DIR}/src/backend/nlohmann)
 add_executable(SWE_Project
         src/backend/main.cpp
         src/backend/Server.cpp
-        src/backend/CSV.cpp
-        src/backend/CSV.h
         src/backend/httplib/httplib.h
         src/backend/Opportunity.cpp
         src/backend/Opportunity.h
+        src/backend/Database.cpp
+        src/backend/Database.h
 )

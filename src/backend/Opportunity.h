@@ -9,6 +9,9 @@
 #include <string>
 #include <vector>
 
+// lib...
+#include <nlohmann/json.hpp>
+
 namespace db {
     //
     // Typedefs
@@ -39,15 +42,10 @@ namespace db {
         bool has(const std::vector<std::string>& keywords) const;
     };
 
+    // Tell the JSON library how to serialize `Opportunity` objects.
+    NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Opportunity, name, phone_number, description, keywords);
+
     using Opportunities = std::vector<Opportunity>;
-
-    //
-    // Functions
-    //
-
-    Opportunities filter(const Opportunities& opportunities, const std::string& keyword);
-
-    Opportunities filter(const Opportunities& opportunities, const std::vector<std::string>& keywords);
 } // db
 
 #endif //SWE_PROJECT_OPPORTUNITY_H

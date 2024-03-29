@@ -25,7 +25,7 @@ namespace http {
     //
 
     Server::Server() {
-        db = csv::parse("src/backend/Database.csv");
+        db = db::Database("src/backend/Database.csv");
     }
 
     Server::~Server() = default;
@@ -129,7 +129,7 @@ namespace http {
         // ENDPOINT: "/api/opportunities"
         // -----------------------------------
         Get("/api/opportunities", [&](const httplib::Request& req, httplib::Response& res) {
-            json obj = db;
+            json obj = db.opportunities;
 
             res.status = http::Status::Ok;
             res.set_content(obj.dump(), "application/json");
@@ -138,24 +138,14 @@ namespace http {
             try {
                 auto json = json::parse(req.body);
 
-                // Get data fields.
+                // Store data fields.
                 std::string name = json["name"];
                 std::string pnum = json["phoneNumber"];
                 std::string desc = json["description"];
                 std::vector<std::string> keys = json["keywords"];
-
-                // Prepare data for storing in `db`.
-                std::vector<std::string> data;
-                data.reserve(2 + keys.size());
-                data.push_back(pnum);
-                data.push_back(desc);
-                data.insert(data.end(), keys.begin(), keys.end());
-
-                // Store.
-                db[name] = data;
+                db.opportunities.emplace_back(name, pnum, desc, keys);
 
                 res.status = http::Status::Ok;
-//                res.set_content(json.dump(), "application/json");
             } catch (const json::parse_error& _) {
                 res.status = http::Status::BadRequest;
                 res.set_content("Bad JSON format", "text/plain");

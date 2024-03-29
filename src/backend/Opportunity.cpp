@@ -48,13 +48,5 @@ namespace db {
     // Functions
     //
 
-    Opportunities filter(const Opportunities& opportunities, const std::string& keyword) {
-        // FIXME: Implement logic.
-        return {};
-    }
 
-    Opportunities filter(const Opportunities& opportunities, const std::vector<std::string>& keywords) {
-        // FIXME: Implement logic.
-        return {};
-    }
 } // db
