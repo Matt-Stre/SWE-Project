@@ -77,6 +77,13 @@ build CMakeFiles/SWE_Project.dir/src/backend/Database.cpp.o: CXX_COMPILER__SWE_P
   OBJECT_DIR = CMakeFiles/SWE_Project.dir
   OBJECT_FILE_DIR = CMakeFiles/SWE_Project.dir/src/backend
 
+build CMakeFiles/SWE_Project.dir/src/backend/User.cpp.o: CXX_COMPILER__SWE_Project_unscanned_Debug /Users/azepp/Documents/ufo/cen-3031/SWE-Project/src/backend/User.cpp || cmake_object_order_depends_target_SWE_Project
+  DEP_FILE = CMakeFiles/SWE_Project.dir/src/backend/User.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/azepp/Documents/ufo/cen-3031/SWE-Project/src/backend
+  OBJECT_DIR = CMakeFiles/SWE_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles/SWE_Project.dir/src/backend
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target SWE_Project
@@ -85,7 +92,7 @@ build CMakeFiles/SWE_Project.dir/src/backend/Database.cpp.o: CXX_COMPILER__SWE_P
 #############################################
 # Link the executable SWE_Project
 
-build SWE_Project: CXX_EXECUTABLE_LINKER__SWE_Project_Debug CMakeFiles/SWE_Project.dir/src/backend/main.cpp.o CMakeFiles/SWE_Project.dir/src/backend/Server.cpp.o CMakeFiles/SWE_Project.dir/src/backend/Opportunity.cpp.o CMakeFiles/SWE_Project.dir/src/backend/Database.cpp.o
+build SWE_Project: CXX_EXECUTABLE_LINKER__SWE_Project_Debug CMakeFiles/SWE_Project.dir/src/backend/main.cpp.o CMakeFiles/SWE_Project.dir/src/backend/Server.cpp.o CMakeFiles/SWE_Project.dir/src/backend/Opportunity.cpp.o CMakeFiles/SWE_Project.dir/src/backend/Database.cpp.o CMakeFiles/SWE_Project.dir/src/backend/User.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
   OBJECT_DIR = CMakeFiles/SWE_Project.dir
   POST_BUILD = :

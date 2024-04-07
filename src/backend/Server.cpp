@@ -108,6 +108,71 @@ namespace http {
         });
 
         // -----------------------------------
+        // ENDPOINT: "/api/users"
+        // -----------------------------------
+        Get("/api/users", [&](const httplib::Request& req, httplib::Response& res) {
+           json response = db.users;
+           res.status = http::Status::Ok;
+           res.set_content(response.dump(), "application/json");
+        });
+        Post("/api/users", [&](const httplib::Request& req, httplib::Response& res) {
+            json response;
+
+            try {
+                auto json = json::parse(req.body);
+                std::string username = json["username"];
+                std::string password = json["password"];
+
+                auto it = std::find_if(db.users.begin(), db.users.end(), [&username](const db::User& user) -> bool {
+                   return user.username == username;
+                });
+                if (it != db.users.end()) {
+                    it->password = password;
+                } else {
+                    db.users.emplace_back(username, password);
+                }
+
+                res.status = http::Status::Ok;
+                response["username"] = username;
+                response["password"] = password;
+            } catch (const json::exception& e) {
+                res.status = http::Status::BadRequest;
+                response["error"] = e.what();
+            }
+
+            res.set_content(response.dump(), "application/json");
+        });
+
+        // -----------------------------------
+        // ENDPOINT: "/api/users/auth"
+        // -----------------------------------
+        Post("/api/users/auth", [&](const httplib::Request& req, httplib::Response& res) {
+            json response;
+
+            try {
+                auto json = json::parse(req.body);
+                std::string username = json["username"];
+                std::string password = json["password"];
+                bool verified = false;
+
+                auto it = std::find_if(db.users.begin(), db.users.end(), [&username, &password](const db::User& user) -> bool {
+                    return user.username == username && user.password == password;
+                });
+                if (it != db.users.end()) {
+                    verified = true;
+                }
+
+                res.status = http::Status::Ok;
+                response["verified"] = verified;
+            } catch (const json::exception& e) {
+                res.status = http::Status::BadRequest;
+                response["error"] = e.what();
+            }
+
+            res.set_content(response.dump(), "application/json");
+        });
+
+        // -----------------------------------
         // ENDPOINT: "/api/preferences"
         // -----------------------------------
         Get(R"(/api/preferences/([^/]+))", [](const httplib::Request& req, httplib::Response& res) {
@@ -120,7 +185,7 @@ namespace http {
                     {"2", "Example Preference B", "(000)-000-0000"},
                     {"3", "Example Preference C", "(000)-000-0000"},
             };
-            
+
             res.status = http::Status::Ok;
             res.set_content(obj.dump(), "application/json");
         });
@@ -129,10 +194,9 @@ namespace http {
         // ENDPOINT: "/api/opportunities"
         // -----------------------------------
         Get("/api/opportunities", [&](const httplib::Request& req, httplib::Response& res) {
-            json obj = db.opportunities;
-
+            json response = db.opportunities;
             res.status = http::Status::Ok;
-            res.set_content(obj.dump(), "application/json");
+            res.set_content(response.dump(), "application/json");
         });
         Put("/api/opportunities", [&](const httplib::Request& req, httplib::Response& res) {
             try {

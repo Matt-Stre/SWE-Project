@@ -44,9 +44,4 @@ namespace db {
         return true;
     }
 
-    //
-    // Functions
-    //
-
-
 } // db

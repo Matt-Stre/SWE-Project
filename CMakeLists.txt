@@ -13,4 +13,6 @@ add_executable(SWE_Project
         src/backend/Opportunity.h
         src/backend/Database.cpp
         src/backend/Database.h
+        src/backend/User.cpp
+        src/backend/User.h
 )

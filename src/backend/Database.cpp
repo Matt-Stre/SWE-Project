@@ -18,8 +18,6 @@ namespace db {
     // Constructors / Destructors
     //
 
-    Database::Database() = default;
-
     Database::Database(const std::string &filepath) {
         std::ifstream file(filepath);
         if (!file.is_open()) {

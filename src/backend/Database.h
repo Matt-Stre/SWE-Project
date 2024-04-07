@@ -10,6 +10,7 @@
 
 // src...
 #include "Opportunity.h"
+#include "User.h"
 
 namespace db {
     struct Database {
@@ -17,13 +18,15 @@ namespace db {
         // Properties
         //
 
-        Opportunities opportunities;
+        Opportunities opportunities = Opportunities();
+
+        Users users = Users();
 
         //
         // Constructors / Destructors
         //
 
-        Database();
+        Database() = default;
 
         Database(const std::string& filepath);
 
