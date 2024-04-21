@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Volunteering Opportunities</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+        }
+        .banner {
+            width: 100%;
+            height: 250px;
+            background-image: url('https://static.vecteezy.com/system/resources/previews/008/020/333/non_2x/volunteering-word-concepts-banner-charitable-foundation-nonprofit-organization-charity-donation-presentation-website-isolated-lettering-typography-idea-with-icons-outline-illustration-vector.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .menu {
+            display: flex;
+            justify-content: space-around;
+            background-color: #007bff;
+            padding: 10px 0;
+            color: white;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0 10px;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .opportunity, .no-match {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        button.return-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+        button.return-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner"></div>
+    <div class="menu">
+        <a href="opportunitiesPOC.html">View All Opportunities</a>
+        <a href="login.html">Log In / Sign Up</a>
+    </div>
+    <div class="container" id="opportunities-container">
+        <!-- Opportunities will be dynamically loaded here -->
+    </div>
+    <button class="return-button" onclick="window.location.href='preferencesPOC.html'">Return to Preferences</button>
+
+    <script>
+        async function fetchOpportunities() {
+            const selectedPreferences = JSON.parse(localStorage.getItem('selectedPreferences')) || [];
+            const container = document.getElementById('opportunities-container');
+            
+            // Simulated fetching of opportunities data
+            const opportunities = [
+                {
+                    name: "Bread of the Mighty Food Bank",
+                    phoneNumber: "(352) 336-0839",
+                    description: "Help sort, pack, and distribute food to those in need in the Gainesville community. Various shifts available at their warehouse location.",
+                    keywords: ["hunger", "food insecurity", "community support"]
+                },
+                {
+                    name: "Alachua County Humane Society",
+                    phoneNumber: "(352) 373-5855",
+                    description: "Assist with animal care (walking, feeding, cleaning), adoption events, fundraising, and other shelter operations.",
+                    keywords: ["animal welfare", "rescue", "pet care"]
+                },
+                {
+                    name: "Keep Alachua County Beautiful",
+                    phoneNumber: "(352) 371-9444",
+                    description: "Participate in clean-up events, beautification projects, community outreach, and environmental education programs.",
+                    keywords: ["environment", "sustainability", "community projects"]
+                },
+				{
+					name: "United Way of North Central Florida",
+					phoneNumber: "(352) 331-2800",
+					description: "Volunteer with a variety of programs supported by United Way, including reading programs for children, tax preparation assistance, and various community-focused initiatives.",
+					keywords: ["education", "community support", "social services"]
+				},
+				{
+					name: "Peaceful Paths Domestic Abuse Network",
+					phoneNumber: "(352) 377-8255",
+					description: "Offer support at their crisis hotline, help with events and outreach, or provide assistance with administrative tasks.",
+					keywords: ["domestic violence", "crisis intervention", "community support"]
+				},
+				{
+					name: "Habitat for Humanity ReStore",
+					phoneNumber: "(352) 373-5728",
+					description: "Assist with sorting and pricing donations, help customers, and support the retail/sales aspect of their operation.",
+					keywords: ["homebuilding", "community", "retail"]
+				},
+				{
+					name: "United Way of North Central Florida",
+					phoneNumber: "(352) 331-2800",
+					description: "Volunteer with a variety of programs supported by United Way, including reading programs for children, tax preparation assistance, and various community-focused initiatives.",
+					keywords: ["education", "community support", "social services"]
+				},
+				{
+					name: "Peaceful Paths Domestic Abuse Network",
+					phoneNumber: "(352) 377-8255",
+					description: "Offer support at their crisis hotline, help with events and outreach, or provide assistance with administrative tasks.",
+					keywords: ["domestic violence", "crisis intervention", "community support"]
+				},
+				{
+					name: "Habitat for Humanity ReStore",
+					phoneNumber: "(352) 373-5728",
+					description: "Assist with sorting and pricing donations, help customers, and support the retail/sales aspect of their operation.",
+					keywords: ["homebuilding", "community", "retail"]
+				},
+				{
+					name: "Gainesville Harvest",
+					phoneNumber: "(352) 378-3663",
+					description: "Help glean leftover produce from local farms to distribute to those in need. May also involve food pantry assistance.",
+					keywords: ["farming", "food distribution", "food insecurity"]
+				},
+				{
+					name: "Grace Marketplace",
+					phoneNumber: "(352) 334-3171",
+					description: "Help with various services for those experiencing homelessness, including meal preparation, serving food, sorting donations, and facility support.",
+					keywords: ["homelessness", "hunger", "community support", "social services"]
+				},
+				{
+					name: "Gainesville Compost",
+					phoneNumber: "(352)-334-2330",
+					description: "Assist with compost collection and processing, educational outreach, and community composting initiatives.",
+					keywords: ["environment", "sustainability", "community projects"]
+				},
+				{
+					name: "Ronald House Charities of North Central Florida",
+					phoneNumber: "(352) 376-7505",
+					description: "Help provide support and a 'home away from home' for families of children receiving medical treatment. Tasks could include meal preparation, facility support, and interacting with families.",
+					keywords: ["healthcare", "children", "families"]
+				},
+				{
+					name: "Lubee Bat Conservancy",
+					phoneNumber: "(352) 485-1250",
+					description: "Devoted to bat conservation and rehabilitation. Volunteer tasks might involve facility upkeep, educational outreach, and potentially assisting with bat care (if you have suitable experience).",
+					keywords: ["animal welfare", "wildlife conservation", "environmental education"]
+				},
+				{
+					name: "Gainesville Public Libraries",
+					phoneNumber: "(352)-334-3940",
+					description: "Volunteer positions often include shelving books, assisting patrons, and potentially helping with programs or events. Check their website for specific needs.",
+					keywords: ["literacy", "community", "books", "education"]
+				},
+				// The Villages
+				{
+					name: "The Villages",
+					phoneNumber: "(352)-364-4063",
+					description: "Many senior centers welcome volunteers for companionship, playing games, assisting with activities, and helping with meals.",
+					keywords: ["elderly", "aging", "companionship", "community activities"]
+				},
+
+				// The Hippodrome Theatre
+				{
+					name: "The Hippodrome Theatre",
+					phoneNumber: "(352) 375-4477",
+					description: "Ushering, assisting with events, and administrative help are all possibilities. Their website might have volunteer listings.",
+					keywords: ["arts", "theatre", "events", "customer service"]
+				},
+
+				// The Repurpose Project
+				{
+					name: "Repurpose Project",
+					phoneNumber: "(352)363-8902",
+					description: "Focuses on creative reuse of materials and diverting items from landfills. Volunteers often help sort materials, create upcycled items, and assist with events.",
+					keywords: ["sustainability", "environment", "upcycling", "creativity"]
+				},
+				{
+					name: "Florida Museum of Natural History",
+					phoneNumber: "(352) 846-2000",
+					description: "Opportunities might include assisting with exhibits, educational programs, research projects, or special events.",
+					keywords: ["science", "education", "history", "research", "exhibits"]
+				},
+
+				// Cade Museum for Creativity and Invention
+				{
+					name: "Cade Museum for Creativity and Invention",
+					phoneNumber: "(352) 371-8001",
+					description: "Look for openings to help with exhibits, workshops, educational outreach, or general museum operations.",
+					keywords: ["innovation", "science", "STEM", "education", "exhibits"]
+				},
+
+				// University of Florida & Santa Fe College
+				{
+					name: "University of Florida & Santa Fe College",
+					phoneNumber: "(352)-395-5000",
+					description: "Both institutions often have volunteer needs across various departments, events, and programs. Check their websites or student affairs offices for listings.",
+					keywords: ["education", "student support", "events"]
+				},
+
+				// Retirement Home for Horses at Mill Creek Farm
+				{
+					name: "Retirement Home for Horses at Mill Creek Farm",
+					phoneNumber: "(386)-462-1001",
+					description: "A sanctuary for horses that have retired from work. Volunteer tasks might include grooming, leading horses, facility upkeep, and fundraising support.",
+					keywords: ["environment", "sustainability", "animal welfare", "rescue"]
+				},
+		    						{
+					name: "S2S STEM Volunteer Opportunities",
+					phoneNumber: "(973) 947-4880",
+					description: "Offers in-person and virtual volunteer roles including mentoring, assisting in labs, and providing instructional support in various STEM activities.",
+					keywords: ["STEM, education, science"]
+				},
+		    						{
+					name: "Renaissance Jax",
+					phoneNumber: "(904) 474-9704",
+					description: "Volunteers can engage in various roles supporting K-12 students in Northeast Florida's FIRST Programs, including technical and non-technical tasks at events.",
+					keywords: ["STEM, education, community support, events"]
+				},
+								{
+					name: "STEM·E Youth Career Development Program",
+					phoneNumber: "(832) 304-3404",
+					description: "Provides volunteer opportunities that include mentoring and support in STEM education and career development for youth and teens, both in-person and virtually.",
+					keywords: ["STEM, children, education"]
+				},
+				{
+					"name": "Department of Elder Affairs (DOEA) Volunteer Programs",
+				        "phoneNumber": "(800)-963-5337",
+					"description": "Offers opportunities like advocating for those in long-term care settings, providing respite for caregivers, and helping elders with insurance needs through the SHINE program.",
+					"keywords": ["elderly", "healthcare", "community support"]
+				},
+
+				{
+					"name": "Senior Friendship Centers in Lee County",
+					"phoneNumber": "(239) 275-1881",
+					"description": "Volunteers assist with various programs such as meal delivery, friendly visitor program, and telephone reassurance to help combat isolation among seniors.",
+					"keywords": ["elderly", "healthcare", "community support"]
+				},
+
+				{
+					"name": "Helping Hands Clinic",
+					"phoneNumber": "(352) 519-5542",
+					"description": "This clinic provides medical services to the homeless and is located at the First United Methodist Church in Gainesville. Volunteers can assist with various tasks to support the clinic's operations.",
+					"keywords": ["healthcare", "community support"]
+				},
+
+				{
+					"name": "ElderCare of Alachua County",
+					"phoneNumber": "(352) 265-9200",
+					"description": "Volunteers can assist at the Senior Recreation Center, help with ElderCare fundraisers, deliver Meals on Wheels, or engage in activities at congregate meal sites.",
+					"keywords": ["elderly", "community support", "healthcare"]
+				},
+
+				{
+					"name": "St. Francis House",
+					"phoneNumber": "(352) 378-9079",
+					"description": "Offers support to women and families experiencing homelessness, providing meals, case management, and various resources. Volunteers can contribute through direct service or support for special events.",
+					"keywords": ["community support", "healthcare"]
+				},
+
+				{
+					"name": "Gainesville Parks, Recreation and Cultural Affairs",
+					"phoneNumber": "(352) 393-8357",
+					"description": "Offers volunteer opportunities in areas such as athletics, environmental education, and special events. This department focuses on community involvement and enhancement.",
+					"keywords": ["Social Services", "environment", "education"]
+				}
+
+
+                // Include other opportunities in a similar structure...
+            ];
+
+            // Filter opportunities based on selected preferences
+            const filteredOpportunities = opportunities.filter(opportunity =>
+                selectedPreferences.length === 0 || // Show all if no preferences selected
+                opportunity.keywords.some(keyword => selectedPreferences.includes(keyword))
+            );
+
+            // Dynamically generate opportunity cards
+            filteredOpportunities.forEach(opportunity => {
+                const div = document.createElement('div');
+                div.className = 'opportunity';
+                div.innerHTML = `
+                    <h2>${opportunity.name}</h2>
+                    <p><strong>Contact:</strong> ${opportunity.phoneNumber}</p>
+                    <p>${opportunity.description}</p>
+                    <p><strong>Keywords:</strong> ${opportunity.keywords.join(', ')}</p>
+                `;
+                container.appendChild(div);
+            });
+
+            // Handle case where no opportunities match the selected preferences
+            if (filteredOpportunities.length === 0) {
+                const noMatchDiv = document.createElement('div');
+                noMatchDiv.className = 'no-match';
+                noMatchDiv.innerHTML = '<p>No opportunities found matching your selected preferences. Please try selecting different preferences.</p>';
+                container.appendChild(noMatchDiv);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchOpportunities);
+    </script>
+</body>
+</html>

@@ -34,8 +34,14 @@ namespace db {
         // Methods
         //
 
+        /*
+         * Find all opportunities associated with a given keyword.
+         */
         Opportunities filter(const std::string& keyword);
 
+        /*
+         * Find all opportunities associated with a given set of keywords.
+         */
         Opportunities filter(const std::vector<std::string>& keywords);
 
     private:

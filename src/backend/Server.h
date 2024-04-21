@@ -26,8 +26,14 @@ namespace http {
         // Methods
         //
 
+        /*
+         * Start up the server, initializing all route endpoints.
+         */
         void init();
 
+        /*
+         * Run the server, listening on address 'http://127.0.0.1' and port '8080'.
+         */
         bool listen();
 
     private:

@@ -7,18 +7,21 @@
 
 namespace http {
     enum Status : int {
+        //
+        // 200+
+        //
         Ok = 200,
         Created = 201,
-        Accepted = 202,
 
+        //
+        // 400+
+        //
         BadRequest = 400,
-        Unauthorized = 401,
-        Forbidden = 403,
-        NotFound = 404,
-        ImATeapot = 418,
 
+        //
+        // 500+
+        //
         InternalServerError = 500,
-        NotImplemented = 501,
     };
 } // http
 

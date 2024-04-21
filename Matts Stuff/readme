@@ -1,3 +1,0 @@
-The databse.csv is our databse with commas and quotes removed from all columns but the keywords column
-
-The keyword.cpp file has both the csv parsing and the keyword matching elements within it
