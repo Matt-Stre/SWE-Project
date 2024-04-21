@@ -62,7 +62,7 @@
 <body>
     <div class="banner"></div>
     <div class="menu">
-        <a href="opportunitiesPOC.html">View All Opportunities</a>
+        <a href="opportunitiesPOC.html">Get New Opportunities</a>
         <a href="login.html">Log In / Sign Up</a>
     </div>
     <div class="container" id="opportunities-container">
@@ -290,8 +290,20 @@
                 opportunity.keywords.some(keyword => selectedPreferences.includes(keyword))
             );
 
+			// shuffles array and outputs 1st 5 elements 
+			function shuffleArray(array) {
+                const shuffledArray = array.slice(); // Create a copy of the array to avoid modifying the original
+                for (let i = shuffledArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+                }
+                return shuffledArray;
+            }
+			const shuffledOpportunities = shuffleArray(filteredOpportunities);
+            const reducedOpportunities = shuffledOpportunities.slice(0, 5);
+
             // Dynamically generate opportunity cards
-            filteredOpportunities.forEach(opportunity => {
+            reducedOpportunities.forEach(opportunity => {
                 const div = document.createElement('div');
                 div.className = 'opportunity';
                 div.innerHTML = `
