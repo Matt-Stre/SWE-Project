@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tag for character encoding -->
     <meta charset="UTF-8">
+    <!-- Title of the web page -->
     <title>Sign Up</title>
+    <!-- Link to Google Fonts for Arial -->
     <link href="https://fonts.googleapis.com/css?family=Arial:400,700" rel="stylesheet">
+    <!-- Internal CSS styles -->
     <style>
+        /* General styling for the body and html to set the font, background color, and remove default margins */
         body, html {
             height: 100%;
             margin: 0;
             font-family: 'Arial', sans-serif;
             background-color: #f5f5f5;
         }
+        /* Styling for the banner with a background image */
         .banner {
             width: 100%;
             height: 250px;
@@ -18,6 +24,7 @@
             background-size: cover;
             background-position: center;
         }
+        /* Flexbox layout for the menu with a blue background */
         .menu {
             display: flex;
             justify-content: space-around;
@@ -25,11 +32,13 @@
             padding: 10px 0;
             color: white;
         }
+        /* Styling for links in the menu, removing underlines and setting their color */
         .menu a {
             color: white;
             text-decoration: none;
             padding: 0 10px;
         }
+        /* Centered container for the form with a white background and shadow */
         .container {
             width: 300px;
             padding: 20px;
@@ -38,6 +47,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+        /* Styling for input elements with full width, padding, and margin */
         input[type="text"], input[type="email"], input[type="password"] {
             width: 100%;
             padding: 8px;
@@ -46,6 +56,7 @@
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
+        /* Styling for the submit button with a blue background */
         button {
             background-color: #007bff;
             color: white;
@@ -55,32 +66,41 @@
             cursor: pointer;
             width: 100%;
         }
+        /* Change background color on hover for the button */
         button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
+    <!-- Banner area for promotional graphics -->
     <div class="banner"></div>
+    <!-- Navigation menu with links -->
     <div class="menu">
         <a href="opportunitiesPOC.html">View All Opportunities</a>
         <a href="login.html">Log In</a>
         <a href="signup.html">Sign Up</a>
     </div>
+    <!-- Container for the signup form -->
     <div class="container">
         <form action="/submit-signup" method="post">
+            <!-- Username input field -->
             <label for="username"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="username" required>
 
+            <!-- Email input field -->
             <label for="email"><b>Email</b></label>
             <input type="email" placeholder="Enter Email" name="email" required>
 
+            <!-- Password input field -->
             <label for="password"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="password" required>
 
+            <!-- Repeat password input field -->
             <label for="repeat-password"><b>Repeat Password</b></label>
             <input type="password" placeholder="Repeat Password" name="repeat-password" required>
 
+            <!-- Submit button -->
             <button type="submit">Sign Up</button>
         </form>
     </div>

@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tag for character set -->
     <meta charset="UTF-8">
+    <!-- Title of the web page -->
     <title>User Profile</title>
+    <!-- Google Fonts link for Arial -->
     <link href="https://fonts.googleapis.com/css?family=Arial:400,700" rel="stylesheet">
+    <!-- Internal CSS styles -->
     <style>
+        /* Styling for the entire page to use Arial font and a light grey background */
         body, html {
             height: 100%;
             margin: 0;
             font-family: 'Arial', sans-serif;
             background-color: #f5f5f5;
         }
+        /* Banner section with a specific height and background image */
         .banner {
             width: 100%;
             height: 250px;
@@ -18,6 +24,7 @@
             background-size: cover;
             background-position: center;
         }
+        /* Horizontal menu with spaced items and a blue background */
         .menu {
             display: flex;
             justify-content: space-around;
@@ -25,11 +32,13 @@
             padding: 10px 0;
             color: white;
         }
+        /* Menu links styling, no underline and white color */
         .menu a {
             color: white;
             text-decoration: none;
             padding: 0 10px;
         }
+        /* Main container for user profile content */
         .container {
             width: 80%;
             max-width: 600px;
@@ -39,19 +48,23 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        .profile-details, .bio, .activities {
+        /* Section titles and contents styling */
+        .profile-details, .bio, .activities, .preferences {
             text-align: left;
             margin-top: 20px;
         }
-        .profile-details p, .bio textarea, .activities li {
+        /* Margins for paragraph elements, textarea, list items, and select element */
+        .profile-details p, .bio textarea, .activities li, .preferences select {
             margin-top: 10px;
         }
+        /* Textarea styling for bio section */
         textarea {
             width: 100%;
             height: 100px;
             padding: 10px;
             box-sizing: border-box;
         }
+        /* Button styling with blue background and hover effect */
         button {
             background-color: #007bff;
             color: white;
@@ -61,32 +74,59 @@
             cursor: pointer;
             width: 100%;
         }
+        /* Darker blue color on hover for buttons */
         button:hover {
             background-color: #0056b3;
         }
+        /* List styling with padding */
         ul {
             padding-left: 20px;
+        }
+        /* Select element styling with full width and padding */
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
+    <!-- Banner display area -->
     <div class="banner"></div>
+    <!-- Navigation menu with links to different pages -->
     <div class="menu">
         <a href="opportunitiesPOC.html">View All Opportunities</a>
         <a href="login.html">Log In</a>
         <a href="signup.html">Sign Up</a>
     </div>
+    <!-- Main container for profile details, bio, preferences, and activities -->
     <div class="container">
+        <!-- User profile details section -->
         <div class="profile-details">
             <h2>User Profile</h2>
             <p><strong>Username:</strong> <span id="username"></span></p>
             <p><strong>Email:</strong> <span id="email"></span></p>
         </div>
+        <!-- Bio section with editable textarea and save button -->
         <div class="bio">
             <h3>Bio</h3>
             <textarea id="bio">I am passionate about volunteering and making a difference in my community.</textarea>
             <button onclick="saveBio()">Save Bio</button>
         </div>
+        <!-- User preferences section with multi-select dropdown and save button -->
+        <div class="preferences">
+            <h3>Preferences</h3>
+            <select multiple id="preferences">
+                <option value="environment">Environment</option>
+                <option value="animal welfare">Animal Welfare</option>
+                <option value="education">Education</option
+                <option value="healthcare">Healthcare</option>
+                <option value="arts">Arts</option>
+                <option value="community support">Community Support</option>
+            </select>
+            <button onclick="savePreferences()">Save Preferences</button>
+        </div>
+        <!-- Section displaying recent activities -->
         <div class="activities">
             <h3>Recent Activities</h3>
             <ul>
@@ -95,9 +135,11 @@
                 <li>Assisted in organizing a community event.</li>
             </ul>
         </div>
+        <!-- Log out button -->
         <button onclick="logout()">Log Out</button>
     </div>
     <script>
+        // Function to check user login status and load profile details
         function checkLogin() {
             const user = JSON.parse(localStorage.getItem('user'));
             if (!user) {
@@ -109,20 +151,41 @@
                 if (bioText) {
                     document.getElementById('bio').value = bioText;
                 }
+                loadPreferences();
             }
         }
 
+        // Function to log out the user
         function logout() {
             localStorage.removeItem('user'); // Clear user session
             window.location.href = 'login.html'; // Redirect to login
         }
 
+        // Function to save bio to local storage
         function saveBio() {
             const bioText = document.getElementById('bio').value;
             localStorage.setItem('bio', bioText);
             alert('Bio saved successfully!');
         }
 
+        // Function to load preferences from local storage
+        function loadPreferences() {
+            const preferences = JSON.parse(localStorage.getItem('selectedPreferences')) || [];
+            const select = document.getElementById('preferences');
+            for (let i = 0; i < select.options.length; i++) {
+                select.options[i].selected = preferences.includes(select.options[i].value);
+            }
+        }
+
+        // Function to save selected preferences to local storage
+        function savePreferences() {
+            const select = document.getElementById('preferences');
+            const selectedPreferences = Array.from(select.selectedOptions).map(option => option.value);
+            localStorage.setItem('selectedPreferences', JSON.stringify(selectedPreferences));
+            alert('Preferences saved successfully!');
+        }
+
+        // Event listener to trigger login check on page load
         document.addEventListener('DOMContentLoaded', checkLogin);
     </script>
 </body>
